@@ -8,52 +8,26 @@ export default function Impressum() {
           <section>
             <h2 className="text-xl font-semibold text-gray-900 mb-4">Angaben gemäß § 5 TMG</h2>
             <p className="text-gray-600">
-              PolitikCheck GmbH<br />
-              Musterstraße 123<br />
-              12345 Berlin
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Vertreten durch</h2>
-            <p className="text-gray-600">
-              Max Mustermann<br />
-              Geschäftsführer
+              Julian Steiner<br />
+              Gernsstrasse 36<br />
+              30659 Hannover
             </p>
           </section>
 
           <section>
             <h2 className="text-xl font-semibold text-gray-900 mb-4">Kontakt</h2>
             <p className="text-gray-600">
-              Telefon: +49 (0) 123 456789<br />
+              Telefon: +49 (0) 15120245055<br />
               E-Mail: info@politikcheck.com
             </p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Registereintrag</h2>
-            <p className="text-gray-600">
-              Eintragung im Handelsregister.<br />
-              Registergericht: Amtsgericht Berlin<br />
-              Registernummer: HRB 123456
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Umsatzsteuer-ID</h2>
-            <p className="text-gray-600">
-              Umsatzsteuer-Identifikationsnummer gemäß §27 a Umsatzsteuergesetz:<br />
-              DE 123456789
-            </p>
-          </section>
+          </section>         
 
           <section>
             <h2 className="text-xl font-semibold text-gray-900 mb-4">Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
             <p className="text-gray-600">
-              Max Mustermann<br />
-              PolitikCheck GmbH<br />
-              Musterstraße 123<br />
-              12345 Berlin
+              Julian Steiner<br />
+              Gernsstrasse 36<br />
+              30659 Hannover
             </p>
           </section>
 

@@ -115,21 +115,21 @@ export default function Kontakt() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-300 py-8">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">Kontakt</h1>
 
-        <div className="bg-white shadow-lg rounded-lg p-6 space-y-8">
+        <div className="bg-gray-200 shadow-lg rounded-lg p-6 space-y-8">
           <section>
             <h2 className="text-xl font-semibold text-gray-900 mb-4">Kontaktieren Sie uns</h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-800 mb-6">
               Haben Sie Fragen, Anregungen oder möchten Sie uns unterstützen? Füllen Sie einfach das Formular aus, 
               und wir melden uns schnellstmöglich bei Ihnen.
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="name" className="block text-sm font-medium text-gray-900">
                   Name *
                 </label>
                 <input
@@ -138,8 +138,8 @@ export default function Kontakt() {
                   id="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className={`mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${
-                    errors.name ? 'border-red-300' : 'border-gray-300'
+                  className={`mt-1 block w-full rounded-lg bg-white border-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${
+                    errors.name ? 'border-red-400' : 'border-gray-500'
                   }`}
                 />
                 {errors.name && (
@@ -148,7 +148,7 @@ export default function Kontakt() {
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-900">
                   E-Mail *
                 </label>
                 <input
@@ -157,8 +157,8 @@ export default function Kontakt() {
                   id="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${
-                    errors.email ? 'border-red-300' : 'border-gray-300'
+                  className={`mt-1 block w-full rounded-lg bg-white border-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${
+                    errors.email ? 'border-red-400' : 'border-gray-500'
                   }`}
                 />
                 {errors.email && (
@@ -167,7 +167,7 @@ export default function Kontakt() {
               </div>
 
               <div>
-                <label htmlFor="kategorie" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="kategorie" className="block text-sm font-medium text-gray-900">
                   Kategorie *
                 </label>
                 <select
@@ -175,7 +175,7 @@ export default function Kontakt() {
                   id="kategorie"
                   value={formData.kategorie}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  className="mt-1 block w-full rounded-lg bg-white border-2 border-gray-500 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                 >
                   <option value="allgemein">Allgemeine Anfrage</option>
                   <option value="factchecking">Fact-Checking</option>
@@ -186,7 +186,7 @@ export default function Kontakt() {
               </div>
 
               <div>
-                <label htmlFor="betreff" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="betreff" className="block text-sm font-medium text-gray-900">
                   Betreff *
                 </label>
                 <input
@@ -195,8 +195,8 @@ export default function Kontakt() {
                   id="betreff"
                   value={formData.betreff}
                   onChange={handleChange}
-                  className={`mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${
-                    errors.betreff ? 'border-red-300' : 'border-gray-300'
+                  className={`mt-1 block w-full rounded-lg bg-white border-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${
+                    errors.betreff ? 'border-red-400' : 'border-gray-500'
                   }`}
                 />
                 {errors.betreff && (
@@ -205,7 +205,7 @@ export default function Kontakt() {
               </div>
 
               <div>
-                <label htmlFor="nachricht" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="nachricht" className="block text-sm font-medium text-gray-900">
                   Ihre Nachricht *
                 </label>
                 <textarea
@@ -214,8 +214,8 @@ export default function Kontakt() {
                   rows={6}
                   value={formData.nachricht}
                   onChange={handleChange}
-                  className={`mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${
-                    errors.nachricht ? 'border-red-300' : 'border-gray-300'
+                  className={`mt-1 block w-full rounded-lg bg-white border-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${
+                    errors.nachricht ? 'border-red-400' : 'border-gray-500'
                   }`}
                 />
                 {errors.nachricht && (
@@ -224,7 +224,7 @@ export default function Kontakt() {
               </div>
 
               <div className="flex items-center justify-between">
-                <p className="text-sm text-gray-500">* Pflichtfeld</p>
+                <p className="text-sm text-gray-700">* Pflichtfeld</p>
                 <button
                   type="submit"
                   disabled={submitStatus.status === 'loading'}
@@ -257,10 +257,10 @@ export default function Kontakt() {
               <div
                 className={`mt-4 p-4 rounded-md ${
                   submitStatus.status === 'success'
-                    ? 'bg-green-50 text-green-800'
+                    ? 'bg-green-200 text-green-900'
                     : submitStatus.status === 'error'
-                    ? 'bg-red-50 text-red-800'
-                    : 'bg-blue-50 text-blue-800'
+                    ? 'bg-red-200 text-red-900'
+                    : 'bg-blue-200 text-blue-900'
                 }`}
               >
                 {submitStatus.message}
@@ -273,18 +273,11 @@ export default function Kontakt() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="border rounded-lg p-4">
                 <h3 className="text-lg font-medium text-gray-900 mb-2">E-Mail</h3>
-                <p className="text-gray-600">
-                  <a href="mailto:info@politikcheck.com" className="text-indigo-600 hover:text-indigo-800">
+                <p className="text-gray-800">
+                  <a href="mailto:info@politikcheck.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">
                     info@politikcheck.com
                   </a>
                 </p>
-              </div>
-              <div className="border rounded-lg p-4">
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Social Media</h3>
-                <div className="space-y-2">
-                  <a href="#" className="text-indigo-600 hover:text-indigo-800 block">Twitter</a>
-                  <a href="#" className="text-indigo-600 hover:text-indigo-800 block">LinkedIn</a>
-                </div>
               </div>
             </div>
           </section>

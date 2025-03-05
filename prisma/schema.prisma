@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Partei {
+  id            String         @id @default(cuid())
+  name          String
+  kurzname      String
+  wahlprogramme Wahlprogramm[]
+  reden         Rede[]
+}
+
+model Wahlprogramm {
+  id        String     @id @default(cuid())
+  jahr      Int
+  titel     String
+  parteiId  String
+  partei    Partei     @relation(fields: [parteiId], references: [id])
+  themen    Thema[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Thema {
+  id             String        @id @default(cuid())
+  titel          String
+  beschreibung   String
+  wahlprogrammId String
+  wahlprogramm   Wahlprogramm  @relation(fields: [wahlprogrammId], references: [id])
+  unterpunkte    Unterpunkt[]
+  reden          Rede[]
+}
+
+model Unterpunkt {
+  id          String   @id @default(cuid())
+  titel       String
+  inhalt      String
+  themaId     String
+  thema       Thema    @relation(fields: [themaId], references: [id])
+  machbarkeit Float    // Skala von 0-1
+  analyse     String   // Detaillierte Analyse der Machbarkeit
+}
+
+model Rede {
+  id        String   @id @default(cuid())
+  titel     String
+  datum     DateTime
+  redner    String
+  parteiId  String
+  partei    Partei   @relation(fields: [parteiId], references: [id])
+  inhalt    String
+  themaId   String
+  thema     Thema    @relation(fields: [themaId], references: [id])
+  ranking   Float    // Relevanz-Ranking
+  faktcheck Json     // Array von Fact-Checking-Ergebnissen
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

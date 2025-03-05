@@ -1,6 +1,8 @@
 'use client'
 
+import React from 'react'
 import { useState } from 'react'
+import { marked } from 'marked'
 
 interface Rede {
   id: string
@@ -15,330 +17,373 @@ interface Rede {
     erklärung: string
     quellen: string[]
   }[]
+  videoLink?: string | JSX.Element
+  zusammenfassung?: string
 }
 
 // Beispieldaten (später durch API-Calls ersetzt)
 const reden: Rede[] = [
   {
-    id: '1',
-    titel: 'Rede zur Klimapolitik',
-    datum: '2024-03-01',
+    id: '21',
+    titel: 'Rede zur Klimapolitik 2025',
+    datum: '2025-01-10',
     redner: 'Robert Habeck',
     partei: 'Grüne',
     thema: 'Klimaschutz',
     faktcheck: [
       {
-        aussage: 'Deutschland hat die höchsten CO2-Einsparungen in der EU',
+        aussage: 'Deutschland wird bis 2030 klimaneutral',
         bewertung: 'teilweise wahr',
-        erklärung:
-          'Deutschland hat zwar absolute Einsparungen erreicht, pro Kopf liegt es aber im Mittelfeld.',
+        erklärung: 'Ambitioniertes Ziel, erfordert jedoch erhebliche Anstrengungen.',
         quellen: ['Umweltbundesamt', 'Eurostat'],
       },
     ],
+    videoLink: 'https://www.phoenix.de/reden/klimapolitik-2025',
   },
   {
-    id: '2',
-    titel: 'Debatte zur Wirtschaftspolitik',
-    datum: '2024-03-05',
+    id: '22',
+    titel: 'Debatte zur Wirtschaftspolitik 2025',
+    datum: '2025-01-15',
     redner: 'Christian Lindner',
     partei: 'FDP',
     thema: 'Wirtschaft',
     faktcheck: [
       {
-        aussage: 'Die Schuldenbremse verhindert Investitionen in die Zukunft',
+        aussage: 'Die Wirtschaft wächst um 3% jährlich',
         bewertung: 'teilweise wahr',
-        erklärung: 'Während die Schuldenbremse die Kreditaufnahme begrenzt, sind Investitionen durch Umschichtungen im Haushalt weiterhin möglich.',
+        erklärung: 'Prognosen sind optimistisch, aber nicht garantiert.',
         quellen: ['Bundesfinanzministerium', 'Sachverständigenrat'],
       },
     ],
+    videoLink: 'https://www.phoenix.de/reden/wirtschaftspolitik-2025',
   },
   {
-    id: '3',
-    titel: 'Rede zur sozialen Gerechtigkeit',
-    datum: '2024-03-08',
+    id: '23',
+    titel: 'Rede zur sozialen Gerechtigkeit 2025',
+    datum: '2025-01-20',
     redner: 'Sahra Wagenknecht',
     partei: 'BSW',
     thema: 'Soziales',
     faktcheck: [
       {
-        aussage: 'Die Reallöhne sind in den letzten 20 Jahren gesunken',
+        aussage: 'Die soziale Ungleichheit nimmt ab',
         bewertung: 'falsch',
-        erklärung: 'Die Reallöhne sind im Durchschnitt gestiegen, wenn auch mit Schwankungen und unterschiedlich nach Branchen.',
+        erklärung: 'Statistiken zeigen eine Zunahme der Ungleichheit.',
         quellen: ['Statistisches Bundesamt', 'Institut für Arbeitsmarkt- und Berufsforschung'],
       },
     ],
+    videoLink: 'https://www.phoenix.de/reden/soziale-gerechtigkeit-2025',
   },
   {
-    id: '4',
-    titel: 'Debatte zur Migrationspolitik',
-    datum: '2024-03-10',
+    id: '24',
+    titel: 'Debatte zur Migrationspolitik 2025',
+    datum: '2025-01-25',
     redner: 'Friedrich Merz',
     partei: 'CDU',
     thema: 'Migration',
     faktcheck: [
       {
-        aussage: 'Deutschland nimmt mehr Flüchtlinge auf als alle anderen EU-Länder',
+        aussage: 'Deutschland hat die meisten Asylanträge in der EU',
         bewertung: 'teilweise wahr',
-        erklärung: 'In absoluten Zahlen stimmt dies, pro Kopf haben andere Länder mehr Flüchtlinge aufgenommen.',
+        erklärung: 'In absoluten Zahlen ja, pro Kopf jedoch nicht.',
         quellen: ['UNHCR', 'Eurostat'],
       },
     ],
+    videoLink: 'https://www.phoenix.de/reden/migrationspolitik-2025',
   },
   {
-    id: '5',
-    titel: 'Rede zur Gesundheitspolitik',
-    datum: '2024-03-12',
+    id: '25',
+    titel: 'Rede zur Gesundheitspolitik 2025',
+    datum: '2025-01-30',
     redner: 'Karl Lauterbach',
     partei: 'SPD',
     thema: 'Gesundheit',
     faktcheck: [
       {
-        aussage: 'Die Krankenhausreform wird 5000 Kliniken retten',
+        aussage: 'Die Gesundheitsreform wird 10.000 Arbeitsplätze schaffen',
         bewertung: 'falsch',
-        erklärung: 'Die genaue Anzahl der betroffenen Kliniken ist noch unklar, die genannte Zahl ist nicht belegbar.',
+        erklärung: 'Die genaue Zahl ist unklar und umstritten.',
         quellen: ['Bundesgesundheitsministerium', 'Deutsche Krankenhausgesellschaft'],
       },
     ],
+    videoLink: 'https://www.phoenix.de/reden/gesundheitspolitik-2025',
   },
   {
-    id: '6',
-    titel: 'Debatte zur Digitalisierung',
-    datum: '2024-03-15',
+    id: '26',
+    titel: 'Debatte zur Digitalisierung 2025',
+    datum: '2025-01-05',
     redner: 'Dorothee Bär',
     partei: 'CSU',
     thema: 'Digitalisierung',
     faktcheck: [
       {
-        aussage: 'Deutschland ist bei der Digitalisierung Schlusslicht in Europa',
+        aussage: 'Deutschland ist führend in der KI-Forschung',
         bewertung: 'teilweise wahr',
-        erklärung: 'In einigen Bereichen liegt Deutschland zurück, in anderen wie Industrie 4.0 ist es führend.',
+        erklärung: 'In einigen Bereichen ja, aber nicht in allen.',
         quellen: ['EU-Digitalindex', 'Bitkom'],
       },
     ],
+    videoLink: 'https://www.phoenix.de/reden/digitalisierung-2025',
   },
   {
-    id: '7',
-    titel: 'Rede zur Verteidigungspolitik',
-    datum: '2024-03-18',
+    id: '27',
+    titel: 'Rede zur Verteidigungspolitik 2025',
+    datum: '2025-01-10',
     redner: 'Marie-Agnes Strack-Zimmermann',
     partei: 'FDP',
     thema: 'Verteidigung',
     faktcheck: [
       {
-        aussage: 'Die Bundeswehr ist nicht einsatzbereit',
+        aussage: 'Die Bundeswehr ist voll einsatzbereit',
         bewertung: 'teilweise wahr',
-        erklärung: 'Es gibt erhebliche Ausrüstungsmängel, aber Teile der Truppe sind voll einsatzfähig.',
+        erklärung: 'Es gibt noch immer Ausrüstungsmängel.',
         quellen: ['Wehrbeauftragter des Bundestages', 'Bundesverteidigungsministerium'],
       },
     ],
+    videoLink: 'https://www.phoenix.de/reden/verteidigungspolitik-2025',
   },
   {
-    id: '8',
-    titel: 'Debatte zum Klimaschutz',
-    datum: '2024-03-20',
+    id: '28',
+    titel: 'Debatte zum Klimaschutz 2025',
+    datum: '2025-01-15',
     redner: 'Annalena Baerbock',
     partei: 'Grüne',
     thema: 'Klimaschutz',
     faktcheck: [
       {
-        aussage: 'Das 1,5-Grad-Ziel ist noch erreichbar',
+        aussage: 'Das 1,5-Grad-Ziel ist erreichbar',
         bewertung: 'teilweise wahr',
-        erklärung: 'Technisch möglich, aber erfordert sofortige und drastische Maßnahmen weltweit.',
+        erklärung: 'Technisch möglich, aber erfordert sofortige Maßnahmen.',
         quellen: ['IPCC', 'Deutsches Klimakonsortium'],
       },
     ],
+    videoLink: 'https://www.phoenix.de/reden/klimaschutz-2025',
   },
   {
-    id: '9',
-    titel: 'Rede zur Rentenpolitik',
-    datum: '2024-03-22',
+    id: '29',
+    titel: 'Rede zur Rentenpolitik 2025',
+    datum: '2025-01-20',
     redner: 'Hubertus Heil',
     partei: 'SPD',
     thema: 'Soziales',
     faktcheck: [
       {
-        aussage: 'Die Rente ist bis 2045 sicher',
+        aussage: 'Die Rente ist bis 2050 sicher',
         bewertung: 'teilweise wahr',
-        erklärung: 'Die Grundsicherung ist gewährleistet, das Rentenniveau könnte aber sinken.',
+        erklärung: 'Die Grundsicherung ist gewährleistet, das Rentenniveau könnte sinken.',
         quellen: ['Deutsche Rentenversicherung', 'Bundesarbeitsministerium'],
       },
     ],
+    videoLink: 'https://www.phoenix.de/reden/rentenpolitik-2025',
   },
   {
-    id: '10',
-    titel: 'Debatte zur Bildungspolitik',
-    datum: '2024-03-25',
+    id: '30',
+    titel: 'Debatte zur Bildungspolitik 2025',
+    datum: '2025-01-25',
     redner: 'Bettina Stark-Watzinger',
     partei: 'FDP',
     thema: 'Bildung',
     faktcheck: [
       {
-        aussage: 'Deutschland investiert zu wenig in Bildung',
+        aussage: 'Deutschland investiert mehr in Bildung als je zuvor',
         bewertung: 'wahr',
-        erklärung: 'Im OECD-Vergleich liegt Deutschland bei den Bildungsausgaben unter dem Durchschnitt.',
+        erklärung: 'Die Ausgaben sind gestiegen, aber im internationalen Vergleich noch niedrig.',
         quellen: ['OECD', 'Kultusministerkonferenz'],
       },
     ],
+    videoLink: 'https://www.phoenix.de/reden/bildungspolitik-2025',
   },
   {
-    id: '11',
-    titel: 'Rede zur Europapolitik',
-    datum: '2024-03-27',
+    id: '31',
+    titel: 'Rede zur Europapolitik 2025',
+    datum: '2025-01-30',
     redner: 'Norbert Röttgen',
     partei: 'CDU',
     thema: 'Europa',
     faktcheck: [
       {
-        aussage: 'Die EU-Erweiterung gefährdet die Handlungsfähigkeit',
+        aussage: 'Die EU-Erweiterung stärkt die Handlungsfähigkeit',
         bewertung: 'teilweise wahr',
-        erklärung: 'Ohne Reformen der Entscheidungsprozesse könnte die Handlungsfähigkeit leiden.',
+        erklärung: 'Reformen sind notwendig, um die Handlungsfähigkeit zu sichern.',
         quellen: ['EU-Kommission', 'European Council on Foreign Relations'],
       },
     ],
+    videoLink: 'https://www.phoenix.de/reden/europapolitik-2025',
   },
   {
-    id: '12',
-    titel: 'Debatte zur Energiepolitik',
-    datum: '2024-03-29',
+    id: '32',
+    titel: 'Debatte zur Energiepolitik 2025',
+    datum: '2025-01-05',
     redner: 'Robert Habeck',
     partei: 'Grüne',
     thema: 'Energie',
     faktcheck: [
       {
-        aussage: 'Deutschland kann bis 2030 80% erneuerbaren Strom erreichen',
+        aussage: 'Deutschland erreicht 90% erneuerbaren Strom bis 2030',
         bewertung: 'teilweise wahr',
-        erklärung: 'Ziel ist ambitioniert, aber technisch möglich bei beschleunigtem Ausbau.',
+        erklärung: 'Ambitioniertes Ziel, erfordert beschleunigten Ausbau.',
         quellen: ['Bundeswirtschaftsministerium', 'Fraunhofer ISE'],
       },
     ],
+    videoLink: 'https://www.phoenix.de/reden/energiepolitik-2025',
   },
   {
-    id: '13',
-    titel: 'Rede zur Verkehrspolitik',
-    datum: '2024-04-01',
+    id: '33',
+    titel: 'Rede zur Verkehrspolitik 2025',
+    datum: '2025-01-10',
     redner: 'Volker Wissing',
     partei: 'FDP',
     thema: 'Verkehr',
     faktcheck: [
       {
-        aussage: 'E-Fuels sind eine klimafreundliche Alternative',
+        aussage: 'E-Fuels sind die Zukunft der Mobilität',
         bewertung: 'teilweise wahr',
-        erklärung: 'E-Fuels können klimaneutral sein, sind aber energetisch weniger effizient als direkte E-Mobilität.',
+        erklärung: 'E-Fuels sind klimaneutral, aber weniger effizient.',
         quellen: ['Umweltbundesamt', 'Agora Verkehrswende'],
       },
     ],
+    videoLink: 'https://www.phoenix.de/reden/verkehrspolitik-2025',
   },
   {
-    id: '14',
-    titel: 'Debatte zur Innenpolitik',
-    datum: '2024-04-03',
+    id: '34',
+    titel: 'Debatte zur Innenpolitik 2025',
+    datum: '2025-01-15',
     redner: 'Nancy Faeser',
     partei: 'SPD',
     thema: 'Inneres',
     faktcheck: [
       {
-        aussage: 'Die Kriminalität in Deutschland steigt stark an',
-        bewertung: 'falsch',
-        erklärung: 'Die Gesamtkriminalität ist langfristig rückläufig, nur in einzelnen Bereichen gibt es Anstiege.',
+        aussage: 'Die Kriminalität in Deutschland sinkt',
+        bewertung: 'wahr',
+        erklärung: 'Langfristige Trends zeigen einen Rückgang.',
         quellen: ['Bundeskriminalamt', 'Polizeiliche Kriminalstatistik'],
       },
     ],
+    videoLink: 'https://www.phoenix.de/reden/innenpolitik-2025',
   },
   {
-    id: '15',
-    titel: 'Rede zur Agrarpolitik',
-    datum: '2024-04-05',
+    id: '35',
+    titel: 'Rede zur Agrarpolitik 2025',
+    datum: '2025-01-20',
     redner: 'Cem Özdemir',
     partei: 'Grüne',
     thema: 'Landwirtschaft',
     faktcheck: [
       {
-        aussage: 'Bio-Landwirtschaft kann die Welternährung nicht sichern',
+        aussage: 'Bio-Landwirtschaft kann die Welternährung sichern',
         bewertung: 'teilweise wahr',
-        erklärung: 'Bio allein reicht nicht, aber ein Mix aus verschiedenen nachhaltigen Methoden ist möglich.',
+        erklärung: 'Bio ist ein Teil der Lösung, aber nicht die einzige.',
         quellen: ['FAO', 'Thünen-Institut'],
       },
     ],
+    videoLink: 'https://www.phoenix.de/reden/agrarpolitik-2025',
   },
   {
-    id: '16',
-    titel: 'Debatte zur Familienpolitik',
-    datum: '2024-04-08',
+    id: '36',
+    titel: 'Debatte zur Familienpolitik 2025',
+    datum: '2025-01-25',
     redner: 'Lisa Paus',
     partei: 'Grüne',
     thema: 'Familie',
     faktcheck: [
       {
-        aussage: 'Die Kindergrundsicherung reduziert Kinderarmut um 50%',
+        aussage: 'Die Kindergrundsicherung wird Kinderarmut halbieren',
         bewertung: 'teilweise wahr',
-        erklärung: 'Positive Effekte sind zu erwarten, die genaue Wirkung ist aber noch nicht belegt.',
+        erklärung: 'Positive Effekte sind zu erwarten, aber nicht garantiert.',
         quellen: ['Bundesfamilienministerium', 'DIW Berlin'],
       },
     ],
+    videoLink: 'https://www.phoenix.de/reden/familienpolitik-2025',
   },
   {
-    id: '17',
-    titel: 'Rede zur Wohnungspolitik',
-    datum: '2024-04-10',
+    id: '37',
+    titel: 'Rede zur Wohnungspolitik 2025',
+    datum: '2025-01-30',
     redner: 'Kevin Kühnert',
     partei: 'SPD',
     thema: 'Wohnen',
     faktcheck: [
       {
-        aussage: 'Wir brauchen 400.000 neue Wohnungen pro Jahr',
+        aussage: 'Wir brauchen 500.000 neue Wohnungen pro Jahr',
         bewertung: 'wahr',
-        erklärung: 'Diese Zahl wird von Experten als notwendig erachtet, um den Bedarf zu decken.',
+        erklärung: 'Experten halten diese Zahl für notwendig.',
         quellen: ['Pestel-Institut', 'Bundesbauministerium'],
       },
     ],
+    videoLink: 'https://www.phoenix.de/reden/wohnungspolitik-2025',
   },
   {
-    id: '18',
-    titel: 'Debatte zur Außenpolitik',
-    datum: '2024-04-12',
+    id: '38',
+    titel: 'Debatte zur Außenpolitik 2025',
+    datum: '2025-01-05',
     redner: 'Annalena Baerbock',
     partei: 'Grüne',
     thema: 'Außenpolitik',
     faktcheck: [
       {
-        aussage: 'China ist eine systemische Rivalität für Europa',
+        aussage: 'China bleibt ein systemischer Rivale',
         bewertung: 'wahr',
-        erklärung: 'Die EU hat China offiziell als systemischen Rivalen eingestuft.',
+        erklärung: 'Die EU sieht China weiterhin als Rivalen.',
         quellen: ['EU-Strategie-Papier', 'Auswärtiges Amt'],
       },
     ],
+    videoLink: 'https://www.phoenix.de/reden/aussenpolitik-2025',
   },
   {
-    id: '19',
-    titel: 'Rede zur Finanzpolitik',
-    datum: '2024-04-15',
+    id: '39',
+    titel: 'Rede zur Finanzpolitik 2025',
+    datum: '2025-01-10',
     redner: 'Christian Lindner',
     partei: 'FDP',
     thema: 'Finanzen',
     faktcheck: [
       {
-        aussage: 'Die Inflation ist dauerhaft besiegt',
-        bewertung: 'falsch',
-        erklärung: 'Zwar ist die Inflation gesunken, aber verschiedene Risiken bleiben bestehen.',
+        aussage: 'Die Inflation ist unter Kontrolle',
+        bewertung: 'teilweise wahr',
+        erklärung: 'Risiken bestehen weiterhin, aber die Lage ist stabil.',
         quellen: ['Bundesbank', 'EZB'],
       },
     ],
+    videoLink: 'https://www.phoenix.de/reden/finanzpolitik-2025',
   },
   {
-    id: '20',
-    titel: 'Debatte zur Arbeitsmarktpolitik',
-    datum: '2024-04-17',
+    id: '40',
+    titel: 'Debatte zur Arbeitsmarktpolitik 2025',
+    datum: '2025-01-15',
     redner: 'Hubertus Heil',
     partei: 'SPD',
     thema: 'Arbeit',
     faktcheck: [
       {
-        aussage: 'Das Bürgergeld schafft negative Arbeitsanreize',
+        aussage: 'Das Bürgergeld schafft Arbeitsanreize',
         bewertung: 'teilweise wahr',
-        erklärung: 'In bestimmten Konstellationen können Fehlanreize entstehen, diese sind aber nicht systemisch.',
+        erklärung: 'In bestimmten Fällen ja, aber nicht systemisch.',
         quellen: ['IAB', 'Bundesagentur für Arbeit'],
       },
     ],
+    videoLink: 'https://www.phoenix.de/reden/arbeitsmarktpolitik-2025',
+  },
+  {
+    id: '41',
+    titel: 'Vereinbarte Debatte zur Situation in Deutschland',
+    datum: '2025-02-11',
+    redner: 'Robert Habeck',
+    partei: 'Grüne',
+    thema: 'Allgemein',
+    faktcheck: [
+      {
+        aussage: 'Die Debatte behandelt die aktuelle Situation in Deutschland',
+        bewertung: 'wahr',
+        erklärung: 'Die Debatte wurde im Bundestag geführt.',
+        quellen: ['Bundestag'],
+      },
+    ],
+    videoLink: 'https://webtv.bundestag.de/pservices/player/embed/nokey?e=bt-od&ep=69&a=144277506&c=7629441&t=https%3A%2F%2Fdbtg.tv%2Fcvid%2F7629441',
+    zusammenfassung: `- **Klimakrise als existenzielle Bedrohung**: Der Klimawandel gefährdet Leben, Umwelt und zukünftige Generationen.  
+- **Notwendigkeit schneller Maßnahmen**: Verzögerung führt zu irreversiblen Schäden, daher ist sofortiges Handeln entscheidend.  
+- **Verantwortung der Politik und Gesellschaft**: Alle müssen ihren Beitrag leisten, insbesondere politische Entscheidungsträger.  
+- **Forderung nach nachhaltigen Lösungen**: Investitionen in erneuerbare Energien, Ressourcenschonung und Klimagerechtigkeit sind essenziell.  
+- **Appell an Solidarität und Engagement**: Nur durch gemeinsames, weltweites Handeln können die Klimaziele erreicht werden.`,
   },
 ]
 
@@ -362,13 +407,17 @@ const abgeordnetenBilder: { [key: string]: string } = {
   'Kevin Kühnert': '/images/abgeordnete/kuehnert.jpg'
 }
 
-export default function Reden() {
+export default function Reden(): JSX.Element {
   const [selectedThema, setSelectedThema] = useState<string>('')
   const [searchTerm, setSearchTerm] = useState<string>('')
   const [filterBewertung, setFilterBewertung] = useState<'alle' | 'falsch' | 'teilweise wahr'>('alle')
+  const [visibleCount, setVisibleCount] = useState<number>(5)
+
+  // Sortiere die Reden nach Datum, absteigend
+  const sortedReden = [...reden].sort((a, b) => new Date(b.datum).getTime() - new Date(a.datum).getTime())
 
   // Filtere Reden basierend auf Thema, Suchbegriff und Bewertung
-  const filteredReden = reden.filter(
+  const filteredReden = sortedReden.filter(
     (rede) => {
       const matchesThema = !selectedThema || rede.thema === selectedThema
       const matchesSearch = !searchTerm ||
@@ -381,7 +430,13 @@ export default function Reden() {
     }
   )
 
+  // Erhöhe die Anzahl der sichtbaren Reden um 5
+  const showMoreReden = () => {
+    setVisibleCount((prev) => prev + 5)
+  }
+
   return (
+    <React.Fragment>
     <div className="min-h-screen bg-gradient-to-br from-[#38557c] via-white to-gray-100 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
@@ -444,7 +499,7 @@ export default function Reden() {
 
         {/* Redenliste */}
         <div className="mt-8 space-y-6">
-          {filteredReden.map((rede) => (
+            {filteredReden.slice(0, visibleCount).map((rede) => (
             <div
               key={rede.id}
               className="bg-white shadow-lg rounded-lg overflow-hidden"
@@ -472,12 +527,12 @@ export default function Reden() {
                   </div>
 
                   <div className="flex-1">
-                <div className="flex items-center justify-between">
-                  <h2 className="text-xl font-semibold text-gray-900">
+                      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                        <div className="flex-grow max-w-2xl">
+                          <h2 className="text-xl font-semibold text-gray-900 mb-1">
                     {rede.titel}
                   </h2>
-                </div>
-                <div className="mt-2 text-sm text-gray-500">
+                          <div className="text-sm text-gray-500">
                   <p>
                         {rede.redner} (<span className={
                           rede.partei === 'CDU' ? 'text-black' :
@@ -491,7 +546,29 @@ export default function Reden() {
                           'text-gray-500'
                         }>{rede.partei}</span>) - {rede.datum}
                   </p>
-                  <p className="mt-1">Thema: {rede.thema}</p>
+                            <p>Thema: {rede.thema}</p>
+                          </div>
+                        </div>
+                        {rede.videoLink && (
+                          <div className="flex-shrink-0 md:ml-6 md:mr-6">
+                            {typeof rede.videoLink === 'string' ? (
+                              <iframe
+                                width="320"
+                                height="180"
+                                src={rede.videoLink}
+                                allowFullScreen={true}
+                                referrerPolicy="origin"
+                                style={{ border: 'none' }}
+                                allow="geolocation; autoplay"
+                                sandbox="allow-same-origin allow-scripts allow-forms allow-modals allow-popups"
+                              ></iframe>
+                            ) : (
+                              rede.videoLink
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    </div>
                 </div>
 
                 {/* Fact-Checking */}
@@ -500,11 +577,8 @@ export default function Reden() {
                     Fact-Checking
                   </h3>
                   <div className="mt-2 space-y-4">
-                    {rede.faktcheck.map((check, index) => (
-                      <div
-                        key={index}
-                        className="border border-gray-200 rounded-lg p-4"
-                      >
+                    {rede.faktcheck.map((check, checkIndex) => (
+                      <div key={checkIndex} className="border border-gray-200 rounded-lg p-4">
                         <p className="font-medium text-gray-900">
                           Aussage: {check.aussage}
                         </p>
@@ -528,15 +602,34 @@ export default function Reden() {
                         </div>
                       </div>
                     ))}
+                    {rede.zusammenfassung && (
+                      <div className="mt-4">
+                        <h3 className="text-lg font-semibold mb-2">
+                          Zusammenfassung
+                        </h3>
+                        <div className="prose prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: marked.parse(rede.zusammenfassung) }} />
                       </div>
-                    </div>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
           ))}
         </div>
+
+        {/* Mehr anzeigen Button */}
+        {visibleCount < filteredReden.length && (
+          <div className="text-center mt-4">
+            <button
+              onClick={showMoreReden}
+              className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+            >
+              Mehr anzeigen
+            </button>
+          </div>
+        )}
       </div>
     </div>
-  )
+  </React.Fragment>
+)
 } 

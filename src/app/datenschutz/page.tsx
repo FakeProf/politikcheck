@@ -35,7 +35,7 @@ export default function Datenschutz() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">3. Analyse-Tools und Werbung</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">3. Analyse-Tools</h2>
             <div className="space-y-4">
               <h3 className="text-lg font-medium text-gray-900">Google Analytics</h3>
               <p className="text-gray-600">
@@ -43,15 +43,6 @@ export default function Datenschutz() {
                 Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.
               </p>
             </div>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">4. Newsletter</h2>
-            <p className="text-gray-600">
-              Wenn Sie den auf der Website angebotenen Newsletter beziehen möchten, benötigen wir von Ihnen eine 
-              E-Mail-Adresse sowie Informationen, welche uns die Überprüfung gestatten, dass Sie der Inhaber der 
-              angegebenen E-Mail-Adresse sind und mit dem Empfang des Newsletters einverstanden sind.
-            </p>
           </section>
 
           <section>
@@ -82,12 +73,8 @@ export default function Datenschutz() {
             <h2 className="text-xl font-semibold text-gray-900 mb-4">7. Kontakt</h2>
             <p className="text-gray-600">
               Bei Fragen zur Erhebung, Verarbeitung oder Nutzung Ihrer personenbezogenen Daten, bei Auskünften, 
-              Berichtigung, Sperrung oder Löschung von Daten wenden Sie sich bitte an:<br /><br />
-              PolitikCheck GmbH<br />
-              Datenschutzbeauftragter<br />
-              Musterstraße 123<br />
-              12345 Berlin<br />
-              E-Mail: datenschutz@politikcheck.com
+              Berichtigung, Sperrung oder Löschung von Daten wenden Sie sich bitte an die im Impressum angegebenen 
+              Kontaktinformationen.
             </p>
           </section>
         </div>
