@@ -75,17 +75,9 @@ const wahlprogramme = {
 }
 
 export default function Wahlprogramme() {
-  const [selectedParteien, setSelectedParteien] = useState<string[]>([])
   const [selectedThema, setSelectedThema] = useState<string>('')
+  const [selectedParteien, setSelectedParteien] = useState<string[]>([])
   const [showWahlprogramme, setShowWahlprogramme] = useState<boolean>(false)
-  const [expandedThemen, setExpandedThemen] = useState<{ [key: string]: boolean }>({})
-
-  const toggleThema = (parteiId: string, thema: string) => {
-    setExpandedThemen((prev) => ({
-      ...prev,
-      [`${parteiId}-${thema}`]: !prev[`${parteiId}-${thema}`],
-    }))
-  }
 
   const links = {
     '1': 'https://www.cdu.de/app/uploads/2025/01/km_btw_2025_wahlprogramm_langfassung_ansicht.pdf',
@@ -97,20 +89,20 @@ export default function Wahlprogramme() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-slate-100 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-3xl font-bold text-slate-800">
             Wahlprogramm-Vergleich
           </h1>
-          <p className="mt-3 text-lg text-gray-500">
+          <p className="mt-3 text-lg text-slate-600">
             Wählen Sie Parteien und Themen zum Vergleichen aus
           </p>
         </div>
 
         {/* Parteienauswahl */}
         <div className="mt-8">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Parteien</h2>
+          <h2 className="text-xl font-semibold text-slate-800 mb-4">Parteien (mehrere auswählbar)</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {parteien.map((partei) => (
               <button
@@ -122,10 +114,10 @@ export default function Wahlprogramme() {
                       : [...prev, partei.id]
                   )
                 }}
-                className={`p-4 rounded-lg shadow ${
+                className={`p-4 rounded-lg shadow-md transition-all duration-200 ${
                   selectedParteien.includes(partei.id)
-                    ? 'bg-indigo-600 text-white'
-                    : 'bg-white text-gray-900 hover:bg-gray-50'
+                    ? 'bg-blue-600 text-white shadow-blue-200'
+                    : 'bg-white text-slate-700 hover:bg-slate-50 hover:shadow-lg'
                 }`}
               >
                 {partei.kurzname}
@@ -136,16 +128,16 @@ export default function Wahlprogramme() {
 
         {/* Themenauswahl mit allen Punkten */}
         <div className="mt-8">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Themen</h2>
+          <h2 className="text-xl font-semibold text-slate-800 mb-4">Themen</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {themen.map((thema) => (
               <button
                 key={thema}
                 onClick={() => setSelectedThema(thema)}
-                className={`p-4 rounded-lg shadow ${
+                className={`p-4 rounded-lg shadow-md transition-all duration-200 ${
                   selectedThema === thema
-                    ? 'bg-indigo-600 text-white'
-                    : 'bg-white text-gray-900 hover:bg-gray-50'
+                    ? 'bg-blue-600 text-white shadow-blue-200'
+                    : 'bg-white text-slate-700 hover:bg-slate-50 hover:shadow-lg'
                 }`}
               >
                 {thema}
@@ -159,7 +151,7 @@ export default function Wahlprogramme() {
           <div className="mt-8 text-center">
             <button
               onClick={() => setShowWahlprogramme(!showWahlprogramme)}
-              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700"
+              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-md text-white bg-blue-600 hover:bg-blue-700 transition-all duration-200 hover:shadow-lg shadow-blue-200"
             >
               {showWahlprogramme ? 'Wahlprogramme ausblenden' : 'Programme vergleichen'}
             </button>
@@ -169,24 +161,33 @@ export default function Wahlprogramme() {
         {/* Anzeige der Wahlprogramme */}
         {showWahlprogramme && selectedParteien.length > 0 && selectedThema && (
           <div className="mt-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Wahlprogramme</h2>
-            <div className="space-y-4">
+            <h2 className="text-xl font-semibold text-slate-800 mb-4">Wahlprogramme im Vergleich</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {selectedParteien.map((parteiId) => {
-                const parteiName = parteien.find((p) => p.id === parteiId)?.name;
-                const programmText = wahlprogramme[parteiId]?.[selectedThema] || 'Keine Daten verfügbar';
+                const partei = parteien.find((p) => p.id === parteiId);
                 return (
-                  <div key={parteiId} className="p-4 bg-white rounded-lg shadow">
-                    <h3 className="text-lg font-medium text-gray-900">
-                      {parteiName}
-                    </h3>
-                    <p className="mt-2 text-gray-700">
-                      {programmText}
-                    </p>
-                    <p className="mt-1">
-                      <Link href={links[parteiId]} target="_blank" rel="noopener noreferrer">
-                        Mehr erfahren
-                      </Link>
-                    </p>
+                  <div key={parteiId} className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 h-full border border-slate-100">
+                    <div className="flex flex-col h-full">
+                      <h3 className="text-lg font-medium text-slate-800 mb-4 pb-2 border-b border-slate-100">
+                        {partei?.name}
+                      </h3>
+                      <p className="flex-grow text-slate-600 leading-relaxed">
+                        {wahlprogramme[parteiId as keyof typeof wahlprogramme][selectedThema as keyof (typeof wahlprogramme)[keyof typeof wahlprogramme]] || 'Keine Daten verfügbar'}
+                      </p>
+                      <p className="mt-6 pt-4 border-t border-slate-100">
+                        <Link 
+                          href={links[parteiId as keyof typeof links]} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:text-blue-800 transition-colors duration-200 flex items-center gap-2"
+                        >
+                          Mehr erfahren 
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                          </svg>
+                        </Link>
+                      </p>
+                    </div>
                   </div>
                 );
               })}

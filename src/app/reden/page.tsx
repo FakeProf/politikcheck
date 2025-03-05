@@ -1,8 +1,9 @@
 'use client'
 
 import React from 'react'
+import type { JSX } from 'react'
 import { useState } from 'react'
-import { marked } from 'marked'
+import ReactMarkdown from 'react-markdown'
 
 interface Rede {
   id: string
@@ -499,7 +500,7 @@ export default function Reden(): JSX.Element {
 
         {/* Redenliste */}
         <div className="mt-8 space-y-6">
-            {filteredReden.slice(0, visibleCount).map((rede) => (
+              {filteredReden.slice(0, visibleCount).map((rede) => (
             <div
               key={rede.id}
               className="bg-white shadow-lg rounded-lg overflow-hidden"
@@ -527,12 +528,12 @@ export default function Reden(): JSX.Element {
                   </div>
 
                   <div className="flex-1">
-                      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-                        <div className="flex-grow max-w-2xl">
-                          <h2 className="text-xl font-semibold text-gray-900 mb-1">
+                        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                          <div className="flex-grow max-w-2xl">
+                            <h2 className="text-xl font-semibold text-gray-900 mb-1">
                     {rede.titel}
                   </h2>
-                          <div className="text-sm text-gray-500">
+                            <div className="text-sm text-gray-500">
                   <p>
                         {rede.redner} (<span className={
                           rede.partei === 'CDU' ? 'text-black' :
@@ -546,29 +547,29 @@ export default function Reden(): JSX.Element {
                           'text-gray-500'
                         }>{rede.partei}</span>) - {rede.datum}
                   </p>
-                            <p>Thema: {rede.thema}</p>
+                              <p>Thema: {rede.thema}</p>
+                            </div>
                           </div>
+                          {rede.videoLink && (
+                            <div className="flex-shrink-0 md:ml-6 md:mr-6">
+                              {typeof rede.videoLink === 'string' ? (
+                                <iframe
+                                  width="320"
+                                  height="180"
+                                  src={rede.videoLink}
+                                  allowFullScreen={true}
+                                  referrerPolicy="origin"
+                                  style={{ border: 'none' }}
+                                  allow="geolocation; autoplay"
+                                  sandbox="allow-same-origin allow-scripts allow-forms allow-modals allow-popups"
+                                ></iframe>
+                              ) : (
+                                rede.videoLink
+                              )}
+                            </div>
+                          )}
                         </div>
-                        {rede.videoLink && (
-                          <div className="flex-shrink-0 md:ml-6 md:mr-6">
-                            {typeof rede.videoLink === 'string' ? (
-                              <iframe
-                                width="320"
-                                height="180"
-                                src={rede.videoLink}
-                                allowFullScreen={true}
-                                referrerPolicy="origin"
-                                style={{ border: 'none' }}
-                                allow="geolocation; autoplay"
-                                sandbox="allow-same-origin allow-scripts allow-forms allow-modals allow-popups"
-                              ></iframe>
-                            ) : (
-                              rede.videoLink
-                            )}
-                          </div>
-                        )}
                       </div>
-                    </div>
                 </div>
 
                 {/* Fact-Checking */}
@@ -577,8 +578,8 @@ export default function Reden(): JSX.Element {
                     Fact-Checking
                   </h3>
                   <div className="mt-2 space-y-4">
-                    {rede.faktcheck.map((check, checkIndex) => (
-                      <div key={checkIndex} className="border border-gray-200 rounded-lg p-4">
+                      {rede.faktcheck.map((check, checkIndex) => (
+                        <div key={checkIndex} className="border border-gray-200 rounded-lg p-4">
                         <p className="font-medium text-gray-900">
                           Aussage: {check.aussage}
                         </p>
@@ -602,34 +603,36 @@ export default function Reden(): JSX.Element {
                         </div>
                       </div>
                     ))}
-                    {rede.zusammenfassung && (
-                      <div className="mt-4">
-                        <h3 className="text-lg font-semibold mb-2">
-                          Zusammenfassung
-                        </h3>
-                        <div className="prose prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: marked.parse(rede.zusammenfassung) }} />
+                      {rede.zusammenfassung && (
+                        <div className="mt-4">
+                          <h3 className="text-lg font-semibold mb-2">
+                            Zusammenfassung
+                          </h3>
+                          <div className="prose prose-sm max-w-none">
+                            <ReactMarkdown>{rede.zusammenfassung}</ReactMarkdown>
+                          </div>
                       </div>
-                    )}
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Mehr anzeigen Button */}
-        {visibleCount < filteredReden.length && (
-          <div className="text-center mt-4">
-            <button
-              onClick={showMoreReden}
-              className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-            >
-              Mehr anzeigen
-            </button>
+            ))}
           </div>
-        )}
+
+          {/* Mehr anzeigen Button */}
+          {visibleCount < filteredReden.length && (
+            <div className="text-center mt-4">
+              <button
+                onClick={showMoreReden}
+                className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+              >
+                Mehr anzeigen
+              </button>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
-  </React.Fragment>
-)
+    </React.Fragment>
+  )
 } 

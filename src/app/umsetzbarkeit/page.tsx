@@ -580,14 +580,14 @@ export default function Umsetzbarkeit() {
   const hasMore = sortedAndFilteredVorhaben.length > displayCount
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-slate-200 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-gray-900">
-            Umsetzbarkeitsanalyse
+          <h1 className="text-3xl font-bold text-slate-900">
+            Umsetzbarkeit von Wahlversprechen
           </h1>
-          <p className="mt-3 text-lg text-gray-500">
-            Bewertung der Machbarkeit politischer Vorhaben
+          <p className="mt-3 text-lg text-slate-700">
+            Analyse und Bewertung politischer Vorhaben
           </p>
         </div>
 
@@ -651,7 +651,7 @@ export default function Umsetzbarkeit() {
           {displayedVorhaben.map((vorhaben) => (
             <div
               key={vorhaben.id}
-              className="bg-white shadow-lg rounded-lg overflow-hidden"
+              className="bg-slate-50 rounded-lg shadow-md border border-slate-300 overflow-hidden hover:shadow-lg transition-shadow duration-200"
             >
               <div className="p-6">
                 <div className="flex items-center justify-between">

@@ -937,8 +937,27 @@ const abgeordnete: Abgeordneter[] = [
 
 // Funktionen für die Interaktion mit Abgeordneten
 const shareProfile = async (abgeordneter: Abgeordneter) => {
-  // Implementierung für das Teilen des Profils
-  console.log('Teile Profil von:', abgeordneter.name);
+  const url = `${window.location.origin}/abgeordnete/${abgeordneter.id}`;
+  const shareData = {
+    title: `Abgeordnetenprofil: ${abgeordneter.name}`,
+    text: `Schaue dir das Profil von ${abgeordneter.name} (${abgeordneter.partei}) an.`,
+    url: url
+  };
+
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+    } else {
+      // Fallback für Browser, die Web Share API nicht unterstützen
+      await navigator.clipboard.writeText(url);
+      alert('Link wurde in die Zwischenablage kopiert, da Ihr Browser die Teilen-Funktion nicht unterstützt.');
+    }
+  } catch (error) {
+    if (error instanceof Error && error.name !== 'AbortError') {
+      console.error('Fehler beim Teilen:', error);
+      alert('Der Link konnte nicht geteilt werden. Bitte versuchen Sie es erneut.');
+    }
+  }
 };
 
 const aktualisiereScores = () => {
@@ -1043,8 +1062,8 @@ export default function Abgeordnete() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 py-4 sm:py-8">
-      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+    <div className="min-h-screen bg-slate-200 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Score-Erklärung */}
         <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
           <button 
@@ -1270,12 +1289,15 @@ export default function Abgeordnete() {
                   </Link>
                   <button
                     onClick={() => shareProfile(abg)}
-                    className="text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                    className="text-gray-400 hover:text-gray-600 transition-colors duration-200 group relative"
                     title="Profil teilen"
                   >
                     <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                     </svg>
+                    <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs bg-gray-800 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                      Profil teilen
+                    </span>
                   </button>
                 </div>
               </div>

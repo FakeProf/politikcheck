@@ -126,47 +126,40 @@ const abgeordnetenDaten: AbgeordnetenDaten = {
     ]
   },
   '2': {
-    name: 'Rolf Mützenich',
-    partei: 'SPD',
-    position: 'Fraktionsvorsitzender',
-    wahlkreis: 'Köln I',
-    schwerpunkte: ['Außenpolitik', 'Verteidigung', 'Soziales'],
-    isFraktionsvorsitz: true,
+    name: 'Robert Habeck',
+    partei: 'Grüne',
+    position: 'Bundesminister für Wirtschaft und Klimaschutz',
+    wahlkreis: 'Flensburg',
+    schwerpunkte: ['Wirtschaft', 'Klimaschutz', 'Energie'],
+    isFraktionsvorsitz: false,
     score: {
-      wert: 0.92,
-      vorfaelle: [
-        {
-          datum: '2023-12-10',
-          beschreibung: 'Irreführende Darstellung der Verteidigungsausgaben',
-          quelle: 'Correctiv',
-          plattform: 'Bundespressekonferenz',
-        },
-      ],
+      wert: 0.86,
+      vorfaelle: []
     },
     vorhaben: [
       {
-        titel: 'Reform der Bundeswehr',
-        beschreibung: 'Modernisierung der Streitkräfte und Verbesserung der Ausrüstung',
+        titel: 'Energiewende beschleunigen',
+        beschreibung: 'Ausbau erneuerbarer Energien und Netzinfrastruktur',
         status: 'in Bearbeitung',
         machbarkeit: 0.75,
       },
+      {
+        titel: 'Wasserstoffstrategie',
+        beschreibung: 'Aufbau einer Wasserstoffwirtschaft und -infrastruktur',
+        status: 'in Bearbeitung',
+        machbarkeit: 0.80,
+      }
     ],
     reden: [
       {
-        id: '3',
-        titel: 'Debatte zur Ukraine-Unterstützung',
-        datum: '2024-02-22',
-        thema: 'Außenpolitik',
-        zusammenfassung: 'Plädoyer für weitere militärische und humanitäre Hilfe',
-        faktcheck: [
-          {
-            aussage: 'Deutschland ist größter Unterstützer der Ukraine in Europa',
-            bewertung: 'teilweise wahr',
-            erklärung: 'Deutschland ist zweitgrößter Unterstützer nach Großbritannien in absoluten Zahlen.',
-          }
-        ]
+        id: '11',
+        titel: 'Vereinbarte Debatte zur Situation in Deutschland',
+        datum: '2025-02-11',
+        thema: 'Klimaschutz',
+        zusammenfassung: 'In seiner Rede betont Habeck die Klimakrise als existenzielle Bedrohung für Leben, Umwelt und zukünftige Generationen. Er unterstreicht die Notwendigkeit schneller Maßnahmen, da Verzögerungen zu irreversiblen Schäden führen. Dabei hebt er die Verantwortung von Politik und Gesellschaft hervor und fordert nachhaltige Lösungen durch Investitionen in erneuerbare Energien, Ressourcenschonung und Klimagerechtigkeit. Die Rede schließt mit einem Appell an Solidarität und weltweites gemeinsames Handeln zur Erreichung der Klimaziele.',
+        faktcheck: []
       }
-    ]
+    ],
   },
   '3': {
     name: 'Britta Haßelmann',
@@ -650,27 +643,6 @@ const abgeordnetenDaten: AbgeordnetenDaten = {
     reden: redenBeispiele,
   },
   '18': {
-    name: 'Robert Habeck',
-    partei: 'Grüne',
-    position: 'Bundesminister für Wirtschaft und Klimaschutz',
-    wahlkreis: 'Flensburg',
-    schwerpunkte: ['Wirtschaft', 'Klimaschutz', 'Energie'],
-    isFraktionsvorsitz: false,
-    score: {
-      wert: 0.86,
-      vorfaelle: [],
-    },
-    vorhaben: [
-      {
-        titel: 'Energiewende beschleunigen',
-        beschreibung: 'Ausbau erneuerbarer Energien und Netzinfrastruktur',
-        status: 'in Bearbeitung',
-        machbarkeit: 0.75,
-      },
-    ],
-    reden: redenBeispiele,
-  },
-  '19': {
     name: 'Ricarda Lang',
     partei: 'Grüne',
     position: 'Parteivorsitzende',
@@ -691,7 +663,7 @@ const abgeordnetenDaten: AbgeordnetenDaten = {
     ],
     reden: redenBeispiele,
   },
-  '20': {
+  '19': {
     name: 'Omid Nouripour',
     partei: 'Grüne',
     position: 'Parteivorsitzender',
@@ -712,7 +684,7 @@ const abgeordnetenDaten: AbgeordnetenDaten = {
     ],
     reden: redenBeispiele,
   },
-  '21': {
+  '20': {
     name: 'Katrin Göring-Eckardt',
     partei: 'Grüne',
     position: 'Vizepräsidentin des Bundestages',
@@ -733,7 +705,7 @@ const abgeordnetenDaten: AbgeordnetenDaten = {
     ],
     reden: redenBeispiele,
   },
-  '22': {
+  '21': {
     name: 'Christian Lindner',
     partei: 'FDP',
     position: 'Bundesminister der Finanzen',
@@ -761,7 +733,7 @@ const abgeordnetenDaten: AbgeordnetenDaten = {
     ],
     reden: redenBeispiele,
   },
-  '23': {
+  '22': {
     name: 'Marco Buschmann',
     partei: 'FDP',
     position: 'Bundesminister der Justiz',
@@ -782,7 +754,7 @@ const abgeordnetenDaten: AbgeordnetenDaten = {
     ],
     reden: redenBeispiele,
   },
-  '24': {
+  '23': {
     name: 'Bettina Stark-Watzinger',
     partei: 'FDP',
     position: 'Bundesministerin für Bildung und Forschung',
@@ -803,7 +775,7 @@ const abgeordnetenDaten: AbgeordnetenDaten = {
     ],
     reden: redenBeispiele,
   },
-  '25': {
+  '24': {
     name: 'Wolfgang Kubicki',
     partei: 'FDP',
     position: 'Vizepräsident des Bundestages',
@@ -831,7 +803,7 @@ const abgeordnetenDaten: AbgeordnetenDaten = {
     ],
     reden: redenBeispiele,
   },
-  '26': {
+  '25': {
     name: 'Marie-Agnes Strack-Zimmermann',
     partei: 'FDP',
     position: 'Vorsitzende des Verteidigungsausschusses',
@@ -852,7 +824,7 @@ const abgeordnetenDaten: AbgeordnetenDaten = {
     ],
     reden: redenBeispiele,
   },
-  '27': {
+  '26': {
     name: 'Gregor Gysi',
     partei: 'Linke',
     position: 'Mitglied des Bundestages',
@@ -873,7 +845,7 @@ const abgeordnetenDaten: AbgeordnetenDaten = {
     ],
     reden: redenBeispiele,
   },
-  '28': {
+  '27': {
     name: 'Amira Mohamed Ali',
     partei: 'Linke',
     position: 'Mitglied des Bundestages',
@@ -894,7 +866,7 @@ const abgeordnetenDaten: AbgeordnetenDaten = {
     ],
     reden: redenBeispiele,
   },
-  '29': {
+  '28': {
     name: 'Janine Wissler',
     partei: 'Linke',
     position: 'Parteivorsitzende',
@@ -1180,6 +1152,15 @@ export default function AbgeordnetenDetail() {
                     </div>
                   </div>
                 ))}
+                <Link
+                  href="/reden"
+                  className="inline-flex items-center px-3 py-1.5 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors mt-2"
+                >
+                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                  Alle Reden anzeigen
+                </Link>
               </div>
             </div>
           </div>
