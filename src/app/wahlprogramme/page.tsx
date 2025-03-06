@@ -170,7 +170,7 @@ export default function Wahlprogramme() {
                     <div className="flex flex-col h-full">
                       <h3 className="text-lg font-medium text-slate-800 mb-4 pb-2 border-b border-slate-100">
                         {partei?.name}
-                      </h3>
+                    </h3>
                       <p className="flex-grow text-slate-600 leading-relaxed">
                         {wahlprogramme[parteiId as keyof typeof wahlprogramme][selectedThema as keyof (typeof wahlprogramme)[keyof typeof wahlprogramme]] || 'Keine Daten verfügbar'}
                       </p>
